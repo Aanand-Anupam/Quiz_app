@@ -34,4 +34,16 @@
 .container input:checked ~ .checkmark {
     background-color: #2196F3;
   }
+.game_details{
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+.Question_no{
+    width: 100%;
+    border-radius: 20px;
+}
+.game_details input{
+    margin-bottom: 1rem;
+}
+
 

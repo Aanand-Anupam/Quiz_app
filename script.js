@@ -1,14 +1,26 @@
 const URL = "https://opentdb.com/api.php?";
 const container = document.querySelector(".sub_parent");
 
+const first_page = document.querySelector(".game_details");
 
 
-
-const amt = prompt("How many no of questions do you want ?");
-const diff = prompt("Give the difficulty lvl.");
+// const amt = prompt("How many no of questions do you want ?");
+// const diff = prompt("Give the difficulty lvl.");
 // const type = prompt("Type of question");
+const btn_1 = document.querySelector(".proceed");
+btn_1.addEventListener("click", ()=> {
+    const no_of_question = document.querySelector(".Question_no");
+const diff_level = document.querySelector("input[type=radio]:checked");
+    
+    console.log(no_of_question.value);
+    console.log(diff_level.classList[0]);
+    quiz_Question(no_of_question.value,diff_level.classList[0] );
+    first_page.remove();
+    
+})
 
- async function quiz_Question() {
+
+ async function quiz_Question(amt,diff) {
     const response = await fetch(`${URL}+amount=${amt} +&difficulty=${diff}`
     );
     const result = await response.json();
@@ -17,7 +29,7 @@ const diff = prompt("Give the difficulty lvl.");
     Playgame(result);
 }
 
-quiz_Question();
+
 
 function startGame(){
     const form = document.createElement("form");
