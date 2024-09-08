@@ -4,9 +4,7 @@ const container = document.querySelector(".sub_parent");
 const first_page = document.querySelector(".game_details");
 
 
-// const amt = prompt("How many no of questions do you want ?");
-// const diff = prompt("Give the difficulty lvl.");
-// const type = prompt("Type of question");
+
 const btn_1 = document.querySelector(".proceed");
 btn_1.addEventListener("click", ()=> {
     const no_of_question = document.querySelector(".Question_no");
@@ -120,30 +118,31 @@ function startGame(){
     label_4.setAttribute("class", "opt_4");
     
     div_option4.append(label_4);
+
+    const btn_2 = document.createElement("button");
+    const text = document.createTextNode("Submit");
+    btn_2.append(text);
+    btn_2.setAttribute("type","submit")
+    btn_2.setAttribute("class","btn btn-primary");
+    container.append(btn_2);
 }
 
 function Playgame(result){
     
-    const ques = document.querySelector(".question");
-    ques.innerHTML = result.results[0].question;
-    
-    
-    
-
+    for(let i=0; i<result.results.length; i++){
+        const ques = document.querySelector(".question");
+    ques.innerHTML = result.results[i].question;
     const option1 = document.querySelector(".opt_1");
-    
-
-    
-    
-
     const option2 = document.querySelector(".opt_2");
     const option3 = document.querySelector(".opt_3");
     const option4 = document.querySelector(".opt_4");
-    option1.innerHTML = result.results[0].correct_answer;
-    option2.innerHTML = result.results[0].incorrect_answers[0];
+    option1.innerHTML = result.results[i].correct_answer;
+    option2.innerHTML = result.results[i].incorrect_answers[0];
     if(result.results[0].type == "multiple"){
-        option3.innerHTML = result.results[0].incorrect_answers[1];
-        option4.innerHTML = result.results[0].incorrect_answers[2];
+        option3.innerHTML = result.results[i].incorrect_answers[1];
+        option4.innerHTML = result.results[i].incorrect_answers[2];
     }
+    }
+    
     
 }
