@@ -24,7 +24,7 @@ const diff_level = document.querySelector("input[type=radio]:checked");
     const result = await response.json();
     console.log(result);
     startGame()
-    Playgame(result);
+    Playgame(result, 0);
 }
 
 
@@ -37,6 +37,8 @@ function startGame(){
     ques.setAttribute("class", "question");
     form.append(ques);
     //Parent div:
+    
+
     const div_option1 = document.createElement("div");
     div_option1.setAttribute("class", "form-check");
     form.append(div_option1);
@@ -123,14 +125,15 @@ function startGame(){
     const text = document.createTextNode("Submit");
     btn_2.append(text);
     btn_2.setAttribute("type","submit")
-    btn_2.setAttribute("class","btn btn-primary");
+    btn_2.setAttribute("class","btn btn-primary btn_2");
     container.append(btn_2);
 }
 
-function Playgame(result){
+let i = 0;
+function Playgame(result,i){
     
-    for(let i=0; i<result.results.length; i++){
-        const ques = document.querySelector(".question");
+
+    const ques = document.querySelector(".question");
     ques.innerHTML = result.results[i].question;
     const option1 = document.querySelector(".opt_1");
     const option2 = document.querySelector(".opt_2");
@@ -138,11 +141,19 @@ function Playgame(result){
     const option4 = document.querySelector(".opt_4");
     option1.innerHTML = result.results[i].correct_answer;
     option2.innerHTML = result.results[i].incorrect_answers[0];
-    if(result.results[0].type == "multiple"){
+    if(result.results[i].type == "multiple"){
         option3.innerHTML = result.results[i].incorrect_answers[1];
         option4.innerHTML = result.results[i].incorrect_answers[2];
     }
+    const btn_2 = document.querySelector(".btn_2");
+    btn_2.addEventListener("click", func1)
+    function func1() {
+        i = i+1;
+        if(result.results.length > i){
+            Playgame(result, i);
+        }
+
+        
     }
-    
     
 }
