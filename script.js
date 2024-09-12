@@ -11,8 +11,8 @@ btn_1.addEventListener("click", ()=> {
     const no_of_question = document.querySelector(".Question_no");
 const diff_level = document.querySelector("input[type=radio]:checked");
     
-    console.log(no_of_question.value);
-    console.log(diff_level.classList[0]);
+    
+    
     quiz_Question(no_of_question.value,diff_level.classList[0] );
     first_page.remove();
     
@@ -23,7 +23,7 @@ const diff_level = document.querySelector("input[type=radio]:checked");
     const response = await fetch(`${URL}+amount=${amt} +&difficulty=${diff}`
     );
      result = await response.json();
-    console.log(result);
+    
     startGame()
     Playgame(result, 0);
 }
@@ -139,7 +139,7 @@ function btn2_click() {
     let possible_opt = ["option1", "option2", "option3", "option4"];
 
     const choosen_opt = document.querySelector("input[type=radio]:checked");
-    console.log(possible_opt.indexOf(choosen_opt.value),actual_answer_index )
+   
     let scorecard = document.createElement("div");
     scorecard.setAttribute("class", "score");
     container.append(scorecard);
