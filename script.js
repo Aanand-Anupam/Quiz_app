@@ -3,7 +3,7 @@ const container = document.querySelector(".sub_parent");
 
 const first_page = document.querySelector(".game_details");
 
-
+let result;
 
 const btn_1 = document.querySelector(".proceed");
 btn_1.addEventListener("click", ()=> {
@@ -21,7 +21,7 @@ const diff_level = document.querySelector("input[type=radio]:checked");
  async function quiz_Question(amt,diff) {
     const response = await fetch(`${URL}+amount=${amt} +&difficulty=${diff}`
     );
-    const result = await response.json();
+     result = await response.json();
     console.log(result);
     startGame()
     Playgame(result, 0);
@@ -86,6 +86,7 @@ function startGame() {
 
 
 let i = 0;
+let actual_answer_index = "";
 function Playgame(result,i){
     
 
@@ -114,8 +115,8 @@ function Playgame(result,i){
         return avl_option;
     }
     avl_option = shuffleArray(avl_option);
+    actual_answer_index = avl_option.indexOf(correct_answer);
     
-
    
     option1.innerHTML = avl_option[0];
     option2.innerHTML = avl_option[1];
@@ -127,15 +128,32 @@ function Playgame(result,i){
     }
     
     const btn_2 = document.querySelector(".btn_2");
-    btn_2.removeEventListener("click",func1);
-    btn_2.addEventListener("click", func1)
-    function func1() {
-        i = i+1;
-        if(result.results.length > i){
-            Playgame(result, i);
-        }
-
-        
-    }
+    btn_2.removeEventListener("click",btn2_click);
+    btn_2.addEventListener("click", btn2_click);
     
+    
+}
+function btn2_click() {
+    
+    let possible_opt = ["option1", "option2", "option3", "option4"];
+
+    const choosen_opt = document.querySelector("input[type=radio]:checked");
+    console.log(possible_opt.indexOf(choosen_opt.value),actual_answer_index )
+    if(possible_opt.indexOf(choosen_opt.value) === actual_answer_index){
+        update_score();
+    };
+    
+    i = i+1;
+    if(result.results.length > i){
+        Playgame(result, i);
+    }
+    else{
+        window.alert("Quiz Completed!");
+    }
+}
+let j = 0;
+function update_score() {
+    j += 1;
+    let scorecard = document.querySelector(".score");
+        scorecard.innerHTML = `SCORE: ${j}`;
 }
