@@ -1,9 +1,10 @@
 const URL = "https://opentdb.com/api.php?";
+const parent_container = document.querySelector(".parent");
 const container = document.querySelector(".sub_parent");
-
 const first_page = document.querySelector(".game_details");
 
 let result;
+
 
 const btn_1 = document.querySelector(".proceed");
 btn_1.addEventListener("click", ()=> {
@@ -139,21 +140,40 @@ function btn2_click() {
 
     const choosen_opt = document.querySelector("input[type=radio]:checked");
     console.log(possible_opt.indexOf(choosen_opt.value),actual_answer_index )
-    if(possible_opt.indexOf(choosen_opt.value) === actual_answer_index){
-        update_score();
-    };
+    let scorecard = document.createElement("div");
+    scorecard.setAttribute("class", "score");
+    container.append(scorecard);
+    
+    update_score(possible_opt, choosen_opt );
     
     i = i+1;
     if(result.results.length > i){
         Playgame(result, i);
     }
     else{
-        window.alert("Quiz Completed!");
+        display_final_score(j);
     }
 }
 let j = 0;
-function update_score() {
-    j += 1;
-    let scorecard = document.querySelector(".score");
+
+function update_score(possible_opt, choosen_opt) {
+    const scorecard = document.querySelector(".score");
+    if(possible_opt.indexOf(choosen_opt.value) === actual_answer_index){
+        j += 1;
+    scorecard.innerHTML = `SCORE: ${j}`;
+    }
+    else{
         scorecard.innerHTML = `SCORE: ${j}`;
+    }
+}
+
+function display_final_score(score){
+    container.remove()
+    const new_div = document.createElement("div");
+    new_div.setAttribute("class", "sub_parent center");
+    parent_container.append(new_div);
+    let final_show = document.createElement("h3");
+    final_show.setAttribute("class", "style");
+    new_div.append(final_show);
+    final_show.innerText = `Thanks for playing! \n Your final Score is : ${score} `;
 }
